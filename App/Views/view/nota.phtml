@@ -1,0 +1,28 @@
+<?php
+
+if(!isset($_SESSION['autenticado']) && $_SESSION['autenticado'] != true) {
+    header('Location: /');
+}
+
+?>
+
+<section>
+    <a href="/logout">Sair</a>
+
+    <h2 class="title-2">Em uma escala de 1 a 10 o quanto você indicaria a experiência Hórus para um amigo?</h2>
+
+    <div class="page__indicacao grid grid--align-center">
+        <ul class="flex btn__group">
+            <li><button class="btn btn--bg-red">1</button></li>
+            <li><button class="btn btn--bg-red">2</button></li>
+            <li><button class="btn btn--bg-red">3</button></li>
+            <li><button class="btn btn--bg-red">4</button></li>
+            <li><button class="btn btn--bg-red">5</button></li>
+            <li><button class="btn btn--bg-red">6</button></li>
+            <li><button class="btn btn--bg-yellow">7</button></li>
+            <li><button class="btn btn--bg-yellow">8</button></li>
+            <li><button class="btn btn--bg-green">9</button></li>
+            <li><button class="btn btn--bg-green">10</button></li>
+        </ul>
+    </div>
+</section>

@@ -1,0 +1,74 @@
+<?php
+
+if(!isset($_SESSION['autenticado']) && $_SESSION['autenticado'] != true || $_SESSION['permissao'] != 'adm') {
+    header('Location: /logout');
+}
+
+?>
+
+<section class="">
+    <a href="/menu">Menu</a>
+    <a href="/nps-dia">Nps do dia</a>
+    <a href="/nps-mes?mes=03&ano=2020">Nps do mês</a>
+
+    <form method="post" action="/nps-dia">
+        <input type="date" name="data">
+
+        <button type="submit">Consultar</button>
+    </form>
+
+    <form>
+
+    </form>
+
+
+
+    <?php if(isset($this->view->nps_dia) && $this->view->nps_dia == true) { ?>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nota</th>
+                    <th>Data</th>
+                    <th>Usuário</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <?php foreach($this->view->notas as $nota) { ?>
+                    <tr>
+                        <td><?= $nota->nota ?></td>
+                        <td><?= $nota->created_at ?></td>
+                        <td><?= $nota->usuario ?></td>
+                        <td><a href="/nps-delete?id=<?= $nota->id ?>">x</a></td>
+                    </tr>
+                <?php } ?>
+            </tbody>
+        </table>
+        
+        <div class="grafico">
+            <div class="grafico__nps">
+                <div class="grafico__itens">
+                    <span>valor</span>
+                    <div class="grafico__bar"></div>
+                    <span>porcentagem</span>
+                </div>
+
+                <div class="grafico__itens">
+                    <span>valor</span>
+                    <div class="grafico__bar"></div>
+                    <span>porcentagem</span>
+                </div>
+
+                <div class="grafico__itens">
+                    <span>valor</span>
+                    <div class="grafico__bar"></div>
+                    <span>porcentagem</span>
+                </div>
+            </div>
+
+            <div>
+                <span>nps: <?= $this->view->nps_dados['nps_total'] ?>%</span>
+            </div>
+        </div>
+    <?php } ?>
+</section>

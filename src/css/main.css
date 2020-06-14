@@ -6,7 +6,7 @@
 
 a {
 	text-decoration: none;
-	color: #303030;
+	color: #fff;
 }
 
 ul {
@@ -30,20 +30,22 @@ button:focus {
     width: 50px;
     height: 50px;
     border-radius: 50%;
+    border: none;
     color: #fff;
-    border: 1px solid;
     font-size: 1.2rem;
     font-weight: bold;
 }
 
 .btn__input {
-    padding: .5rem 2rem;
-    background-color: rgb(78, 175, 219);
+    padding: .8rem 2rem;
+    background-color: #30bb66ab;
     border: none;
     color: #fff;
     text-transform: uppercase;
     font-weight: bold;
     cursor: pointer;
+    border-radius: 5px;
+    margin-top: 1rem;
 }
 
 .btn__nps {
@@ -53,35 +55,64 @@ button:focus {
 
 .btn--bg-red {
     background-color: #F62119;
-    border-color: #F62119;
 }
 
 .btn--bg-yellow {
     background-color: #E7BA28;
-    border-color: #E7BA28;
 }
 
 .btn--bg-green {
     background-color: #1FB257;
-    border-color: #1FB257;
 }
 
 .page {
-    height: 100vh;    
-    margin: 0 auto;
+    min-height: 100vh;   
+    color: #fff;    
+	background: linear-gradient(-45deg, #000, #074722, #000);
+	background-size: 300% 300%;
+	animation: gradient 15s ease-in-out infinite;
 }
 
-.page__bg {
-    background: rgb(173,103,176);
-    background: linear-gradient(150deg, rgba(173,103,176,0.5) 0%, rgba(102,21,164,0.5) 45%, rgba(187,0,255,0.5) 100%);
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
 }
 
-.w-80 {
+.page__indicacao {
+    margin: 3rem auto;
     width: 80vw;
+}
+
+.logo {
+    background-image: url(../img/logov.png);
+    background-repeat: no-repeat;
+    background-position: top center;
 }
 
 .user {
     max-width: 450px;
+    margin: 0 auto;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+table {
+    width: 400px;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+td, th {
+    padding: .5rem;
+    border: 1px solid #ddd;
 }
 
 .title {
@@ -90,10 +121,18 @@ button:focus {
     margin-bottom: 2rem;
 }
 
+.title-2 {
+    text-align: center;
+    margin-top: 30%;
+    padding-left: 10%;
+    padding-right: 10%;
+    color: #fff;
+}
+
 .input {
     width: 100%;
     margin: 1rem 0;
-    padding: .5rem;
+    padding: .8rem;
     border: 1px solid #ddd;
     border-radius: 5px;
 }
@@ -113,4 +152,32 @@ button:focus {
 
 .flex--align-end {
     justify-content: flex-end;
+}
+
+.grafico {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 50px;
+    height: 250px;
+    width: 300px;
+}
+
+.grafico__nps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 20px;
+    height: 90%;
+}
+
+.grafico__itens {
+    display: grid;
+    row-gap: 10px;
+}
+
+.grafico__bar {
+    background-color: tomato;
+    border-top-left-radius: 15%;
+    border-top-right-radius: 15%;
+    height: 50%;
 }

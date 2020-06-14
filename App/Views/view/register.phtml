@@ -1,0 +1,28 @@
+<?php
+
+if(!isset($_SESSION['autenticado']) && $_SESSION['autenticado'] != true || $_SESSION['permissao'] != 'adm') {
+    header('Location: /');
+}
+
+?>
+
+<a href="/menu">Menu</a>
+
+<section class="user">
+    
+    <form method="post" action="/user-create">
+        <input class="input" type="text" name="username" placeholder="Usuario" required minlength="3" value="<?php if(isset($_GET['username'])) print $_GET['username'] ?>">
+        <input class="input" type="password" name="senha" placeholder="Senha" required minlength="3">
+        <input class="input" type="password" name="confirma" placeholder="Confirme a senha" required minlength="3">
+
+        <?php if(isset($_GET['erro']) && $_GET['erro'] == 1) { ?>
+            <div>Senhas incompatíveis</div>
+        <?php } ?>
+
+        <?php if(isset($_GET['sucesso']) && $_GET['sucesso'] == 1) { ?>
+            <div>Usuário registrado com sucesso!</div>
+        <?php } ?>
+
+        <button class="btn__input" type="submit">Registrar</button>
+    </form>
+</section>

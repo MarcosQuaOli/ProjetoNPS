@@ -1,0 +1,13 @@
+<?php
+
+if(!isset($_SESSION['autenticado']) && $_SESSION['autenticado'] != true || $_SESSION['permissao'] != 'adm') {
+    header('Location: /');
+}
+
+?>
+
+<section class="user">
+    <a href="/logout">Sair</a>
+    <a href="/nps">NPS</a>
+    <a href="/register">Registrar novo usuário</a>
+</section>
