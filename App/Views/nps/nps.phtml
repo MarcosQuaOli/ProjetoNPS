@@ -4,71 +4,190 @@ if(!isset($_SESSION['autenticado']) && $_SESSION['autenticado'] != true || $_SES
     header('Location: /logout');
 }
 
+$years = range(2020, strftime("%Y", time()));
+
+$timeZone = new DateTimeZone('America/Sao_Paulo');
+
+$date = new DateTime('now', $timeZone);
+
 ?>
 
-<section class="">
-    <a href="/menu">Menu</a>
-    <a href="/nps-dia">Nps do dia</a>
-    <a href="/nps-mes?mes=03&ano=2020">Nps do mês</a>
+<a class="btn__back" href="/menu">Menu</a>
 
-    <form method="post" action="/nps-dia">
-        <input type="date" name="data">
+<section class="nps">
+    <div class="nps__selection">
+        <a class="btn__input btn--inline-block" href="#npsDia">Nps do dia</a>
+        <a class="btn__input btn--inline-block" href="#npsMes">Nps do mês</a>    
+        <a class="btn__input btn--inline-block" href="#npsAno">Nps do ano</a>    
+    </div>
 
-        <button type="submit">Consultar</button>
-    </form>
-
-    <form>
-
-    </form>
-
-
-
-    <?php if(isset($this->view->nps_dia) && $this->view->nps_dia == true) { ?>
-        <table>
-            <thead>
-                <tr>
-                    <th>Nota</th>
-                    <th>Data</th>
-                    <th>Usuário</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <?php foreach($this->view->notas as $nota) { ?>
-                    <tr>
-                        <td><?= $nota->nota ?></td>
-                        <td><?= $nota->created_at ?></td>
-                        <td><?= $nota->usuario ?></td>
-                        <td><a href="/nps-delete?id=<?= $nota->id ?>">x</a></td>
-                    </tr>
-                <?php } ?>
-            </tbody>
-        </table>
+    <!-- Nps do dia -->
+    <div id="npsDia" class="nps__consulta" style="<?php if(isset($_GET['target']) && $_GET['target'] == 'dia') echo 'display: inherit' ?>">
+        <div class="nps__search">
+            <form method="post" action="/nps-show?target=dia">
+                <input class="input" type="date" name="data" max="<?= $date->format('Y-m-d'); ?>" value="<?php
+                    if(isset($this->view->data) && !empty($this->view->data) && $_GET['target'] == 'dia') echo $this->view->data; else echo $date->format('Y-m-d'); 
+                ?>">
         
-        <div class="grafico">
-            <div class="grafico__nps">
-                <div class="grafico__itens">
-                    <span>valor</span>
-                    <div class="grafico__bar"></div>
-                    <span>porcentagem</span>
-                </div>
-
-                <div class="grafico__itens">
-                    <span>valor</span>
-                    <div class="grafico__bar"></div>
-                    <span>porcentagem</span>
-                </div>
-
-                <div class="grafico__itens">
-                    <span>valor</span>
-                    <div class="grafico__bar"></div>
-                    <span>porcentagem</span>
-                </div>
-            </div>
-
-            <div>
-                <span>nps: <?= $this->view->nps_dados['nps_total'] ?>%</span>
-            </div>
+                <button class="btn__input nps__btn" type="submit">Consultar</button>
+            </form>
         </div>
-    <?php } ?>
+
+
+        <?php if(isset($_GET['target']) && $_GET['target'] == 'dia' && $this->view->empty != true) { ?>
+            <div class="nps__content">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="table__line">Nota</th>
+                            <th class="table__line">Data</th>
+                            <th class="table__line">Usuário</th>
+                        </tr>
+                    </thead>
+    
+                    <tbody>
+                        <?php foreach($this->view->notasDia as $nota) { ?>
+                            <tr>
+                                <td class="table__line"><?= $nota->nota ?></td>
+                                <td class="table__line"><?= date('d-m-Y H:i', strtotime($nota->created_at))  ?></td>
+                                <td class="table__line"><?= $nota->usuario ?></td>
+                                <td class="table__line"><a class="text-red" href="/nps-delete?id=<?= $nota->id ?>">X</a></td>
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+                
+                <div class="grafico">
+                    <div class="grafico__nps">
+                        <div class="grafico__itens">
+                            <span><?= $this->view->npsDia['detrators'] ?></span>
+                            <div class="grafico__bar grafico__bar--bg-red" style="height:<?= $this->view->npsDia['detrators_porc'] ?>%"></div>
+                            <span><?= $this->view->npsDia['detrators_porc'] ?>%</span>
+                        </div>
+    
+                        <div class="grafico__itens">
+                            <span><?= $this->view->npsDia['passives'] ?></span>
+                            <div class="grafico__bar" style="height:<?= $this->view->npsDia['passives_porc'] ?>%"></div>
+                            <span><?= $this->view->npsDia['passives_porc'] ?>%</span>
+                        </div>
+    
+                        <div class="grafico__itens">
+                            <span><?= $this->view->npsDia['promoters'] ?></span>
+                            <div class="grafico__bar grafico__bar--bg-green" style="height:<?= $this->view->npsDia['promoters_porc'] ?>%"></div>
+                            <span><?= $this->view->npsDia['promoters_porc'] ?>%</span>
+                        </div>
+                    </div>
+    
+                    <div>
+                        <span class="grafico__nps-total">nps: <?= $this->view->npsDia['nps_total'] ?>%</span>
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
+
+        <?php if($this->view->empty == true && $_GET['target'] == 'dia') { ?>
+            <h3 class="mt-5">Não existe nenhuma avaliação para essa data.</h3>
+        <?php } ?>
+
+        <a class="btn__up" href="#"><i class="fa fa-arrow-up" aria-hidden="true"></i></a>
+    </div>
+    
+    <!-- Nps do mês -->
+    <div id="npsMes" class="nps__consulta" style="<?php if(isset($_GET['target']) && $_GET['target'] == 'mes') echo 'display: inherit' ?>">
+        <div class="nps__search">
+            <form method="post" action="/nps-show?target=mes">
+                <input class="input" type="month" name="data" max="<?= $date->format('Y-m'); ?>" value="<?php
+                    if(isset($this->view->data) && !empty($this->view->data) && $_GET['target'] == 'mes') echo $this->view->data; else echo $date->format('Y-m'); 
+                ?>">
+        
+                <button class="btn__input nps__btn" type="submit">Consultar</button>
+            </form>
+        </div>
+        
+        <?php if(isset($_GET['target']) && $_GET['target'] == 'mes' && $this->view->empty != true) { ?>
+            <div class="grid mt-2">
+                <div class="grafico">
+                    <div class="grafico__nps">
+                        <div class="grafico__itens">
+                            <span><?= $this->view->npsMes['detrators'] ?></span>
+                            <div class="grafico__bar grafico__bar--bg-red" style="height:<?= $this->view->npsMes['detrators_porc'] ?>%"></div>
+                            <span><?= $this->view->npsMes['detrators_porc'] ?>%</span>
+                        </div>
+
+                        <div class="grafico__itens">
+                            <span><?= $this->view->npsMes['passives'] ?></span>
+                            <div class="grafico__bar" style="height:<?= $this->view->npsMes['passives_porc'] ?>%"></div>
+                            <span><?= $this->view->npsMes['passives_porc'] ?>%</span>
+                        </div>
+
+                        <div class="grafico__itens">
+                            <span><?= $this->view->npsMes['promoters'] ?></span>
+                            <div class="grafico__bar grafico__bar--bg-green" style="height:<?= $this->view->npsMes['promoters_porc'] ?>%"></div>
+                            <span><?= $this->view->npsMes['promoters_porc'] ?>%</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <span class="grafico__nps-total">nps: <?= $this->view->npsMes['nps_total'] ?>%</span>
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
+
+        <?php if($this->view->empty == true && $_GET['target'] == 'mes') { ?>
+            <h3 class="mt-5">Não existe nenhuma avaliação para essa data.</h3>
+        <?php } ?>
+    </div>
+    
+    <!-- Nps do ano -->
+    <div id="npsAno" class="nps__consulta" style="<?php if(isset($_GET['target']) && $_GET['target'] == 'ano') echo 'display: inherit' ?>">
+        <div class="nps__search">
+            <form method="post" action="/nps-show?target=ano">
+                <select class="input" name="data">
+                    <?php foreach($years as $year) { ?>
+                        <option value="<?= $year ?>"><?= $year ?></option>
+                    <?php } ?>
+                </select>
+
+                <button class="btn__input nps__btn" type="submit">Consultar</button>
+            </form>
+        </div>
+
+        <?php if(isset($_GET['target']) && $_GET['target'] == 'ano' && $this->view->empty != true) { ?>
+            <div class="grid mt-2">
+                <div class="grafico">
+                    <div class="grafico__nps">
+                        <div class="grafico__itens grafico__itens-1">
+                            <span><?= $this->view->npsAno['detrators'] ?></span>
+                            <div class="grafico__bar grafico__bar--bg-red" style="height:<?= $this->view->npsAno['detrators_porc'] ?>%"></div>
+                            <span><?= $this->view->npsAno['detrators_porc'] ?>%</span>
+                        </div>
+
+                        <div class="grafico__itens grafico__itens-2">
+                            <span><?= $this->view->npsAno['passives'] ?></span>
+                            <div class="grafico__bar" style="height:<?= $this->view->npsAno['passives_porc'] ?>%"></div>
+                            <span><?= $this->view->npsAno['passives_porc'] ?>%</span>
+                        </div>
+
+                        <div class="grafico__itens grafico__itens-3">
+                            <span><?= $this->view->npsAno['promoters'] ?></span>
+                            <div class="grafico__bar grafico__bar--bg-green" style="height:<?= $this->view->npsAno['promoters_porc'] ?>%"></div>
+                            <span><?= $this->view->npsAno['promoters_porc'] ?>%</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <span class="grafico__nps-total">nps: <?= $this->view->npsAno['nps_total'] ?>%</span>
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
+
+        <?php if($this->view->empty == true && $_GET['target'] == 'ano') { ?>
+            <h3 class="mt-5">Não existe nenhuma avaliação para essa data.</h3>
+        <?php } ?>
+    </div>
+
 </section>
+
+<script src="src/js/consulta.js"></script>

@@ -9,29 +9,86 @@ use App\Models\Nps;
 class NpsController extends Action {
 
     public function index() {
+        $this->view->empty = false;
 
         $this->render('nps');
     }
 
-    public function showDia() {
-        
+    public function show() {
         $npsDAO = new NpsDAO();
-        
-        $data = $_POST['data'];
 
-        $dataFormated = str_replace('-', '/', $data);
+        if(isset($_GET['target']) && $_GET['target'] == 'dia') {
 
-        $this->view->npsDia = $this->showNps($npsDAO->getNpsDia($dataFormated));
-        $this->view->notasDia = $npsDAO->showNotas($dataFormated);
+            $this->view->data = $_POST['data'];
 
-        print_r(json_encode($this->view->notasDia));
+            $dataFormated = str_replace('-', '/', $this->view->data);
 
-        //print_r(json_encode($this->view->npsDia));
+            $npsDia = $npsDAO->getNpsDia($dataFormated);
 
+            if(count($npsDia) > 0) {
+
+                $this->view->npsDia = $this->showNps($npsDia);
+                $this->view->notasDia = $npsDAO->showNotas($dataFormated);
+                $this->view->empty = false;
+
+                $this->render('/nps');
+
+            } else {
+
+                $this->view->empty = true;
+                $this->render('/nps');
+
+            }
+
+    
+        } else if(isset($_GET['target']) && $_GET['target'] == 'mes') {
+
+            $this->view->data = $_POST['data'];
+
+            $dataFormated = str_replace('-', '/', $this->view->data);
+
+            $npsMes = $npsDAO->getNpsMes($dataFormated);
+
+            if(count($npsMes) > 0) {
+
+                $this->view->npsMes = $this->showNps($npsMes);
+                $this->view->empty = false;
+
+                $this->render('/nps');
+
+            } else {
+
+                $this->view->empty = true;
+                $this->render('/nps');
+
+            }
+
+        } else if(isset($_GET['target']) && $_GET['target'] == 'ano') {
+
+            $data = $_POST['data'];
+
+            $npsAno = $npsDAO->getNpsAno($data);
+
+            if(count($npsAno) > 0) {
+
+                $this->view->npsAno = $this->showNps($npsAno);
+                $this->view->empty = false;
+
+                $this->render('/nps');
+
+            } else {
+
+                $this->view->empty = true;
+                $this->render('/nps');
+
+            }
+
+        }
     }
 
     public function porcentagem($args, $total) {
-        return ($args * 100) / $total;
+        $result = ($args * 100) / $total;
+        return number_format($result, 2);
     }
 
     public function showNps($args) {
@@ -74,18 +131,6 @@ class NpsController extends Action {
         );
     }
 
-    public function showNpsMes() {
-        
-        $npsDAO = new NpsDAO();
-
-        $data = $_GET['ano'] . '/' . $_GET['mes'];
-
-        $this->view->notasMes = $npsDAO->getNpsMes($data);
-
-        print_r(json_encode($this->showNps($this->view->notasMes)));
-        //print_r(json_encode($this->view->notasMes));
-    }
-
 	public function store() {
 
         $npsDAO = new NpsDAO();
@@ -96,7 +141,7 @@ class NpsController extends Action {
 
         $npsDAO->insert($nps);
 
-        header('Location: /nota');
+        header('Location: /agradecimento');
 
     }
     

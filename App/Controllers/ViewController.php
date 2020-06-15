@@ -27,6 +27,11 @@ class ViewController extends Action {
 		$this->render('register');
 	}
 
+	public function agradecimento() {
+
+		$this->render('agradecimento');
+	}
+
 }
 
 

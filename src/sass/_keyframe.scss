@@ -1,0 +1,26 @@
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+@keyframes gelatine {
+	from,to {
+		transform: scale(1,1)
+	}
+	25% {
+		transform: scale(.9,1.1)
+	}
+	50% {
+		transform: scale(1.1,.9)
+	}
+	75% {
+		transform: scale(.95,1.05)
+	}
+}

@@ -1,5 +1,5 @@
 $(document).ready(() => {
-    $('.btn__group .btn').click((e) => {
+    $('.notas .btn').click((e) => {
         let nota = $(e.target).html();
 
         console.log(nota);

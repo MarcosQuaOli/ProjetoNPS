@@ -9,17 +9,10 @@ class NpsDAO extends Connection {
 
     public function showNotas($data) {
 
-        $query = "select * from nps where DATE_FORMAT(created_at, '%Y/%m/%d') = '$data'";
+        $query = "select * from nps where DATE_FORMAT(created_at, '%Y/%m/%d') = '$data' order BY created_at desc";
 
         return $this->select($query);
 
-    }
-
-    public function getNotas() {
-
-        $query = 'SELECT nota, COUNT(*) As total FROM nps GROUP BY nota';
-
-        return $this->select($query);
     }
 
     public function getNpsDia($data) {
@@ -33,6 +26,14 @@ class NpsDAO extends Connection {
     public function getNpsMes($data) {
 
         $query = "select nota, count(*) as total from nps where DATE_FORMAT(created_at, '%Y/%m') = '$data' group by nota";
+
+        return $this->select($query); 
+
+    }
+
+    public function getNpsAno($data) {
+
+        $query = "select nota, count(*) as total from nps where DATE_FORMAT(created_at, '%Y') = '$data' group by nota";
 
         return $this->select($query); 
 

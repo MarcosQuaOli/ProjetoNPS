@@ -1,0 +1,30 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+a {
+	text-decoration: none;
+	color: #fff;
+}
+
+ul {
+	list-style-type: none;
+}
+
+button, a {
+	transition: .3s ease-in-out;
+}
+
+button:focus {
+	outline: 0;
+}
+
+img {
+	max-width: 100%;
+}

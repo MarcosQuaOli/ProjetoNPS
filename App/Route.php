@@ -26,6 +26,12 @@ class Route extends Bootstrap {
 			'action' => 'menu'
 		);
 
+		$routes['agradecimento'] = array(
+			'route' => '/agradecimento',
+			'controller' => 'viewController',
+			'action' => 'agradecimento'
+		);
+
 		$routes['register'] = array(
 			'route' => '/register',
 			'controller' => 'viewController',
@@ -50,16 +56,10 @@ class Route extends Bootstrap {
 			'action' => 'delete'
 		);
 
-		$routes['nps-dia'] = array(
-			'route' => '/nps-dia',
+		$routes['nps-show'] = array(
+			'route' => '/nps-show',
 			'controller' => 'npsController',
-			'action' => 'showDia'
-		);
-
-		$routes['nps-mes'] = array(
-			'route' => '/nps-mes',
-			'controller' => 'npsController',
-			'action' => 'showNpsMes'
+			'action' => 'show'
 		);
 
 		$routes['user'] = array(

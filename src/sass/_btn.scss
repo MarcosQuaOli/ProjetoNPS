@@ -1,0 +1,88 @@
+.btn {
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: none;
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: bold;
+
+    &:hover, &:focus {
+		@include transition-timing-function(cubic-bezier(.6,4,.3,.8));
+		@include animation (gelatine .5s 1);
+	}
+
+    @media (min-width: 992px) {
+        width: 80px;
+        height: 80px;
+        font-size: 1.8rem;
+    }
+
+    &__input {
+        display: block;
+        text-align: center;
+        padding: .8rem 2.5rem;
+        border: none;
+        color: #fff;
+        text-transform: uppercase;
+        font-weight: bold;
+        cursor: pointer;
+        border-radius: 5px;
+        margin-top: 1rem;
+        letter-spacing: .5px;
+        background: #074722;
+        background: linear-gradient(-45deg, rgb(36, 34, 34) 0%, rgb(38, 100, 34) 25%, rgb(38, 100, 34) 51%, rgb(36, 34, 34) 100%);
+        box-shadow: 0 0 20px #202020;
+
+        &:hover, &:focus {
+            @include transition-timing-function(cubic-bezier(.6,4,.3,.8));
+            @include animation (gelatine .5s 1);
+        }
+    }
+
+    &__back {
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        padding: .5rem 1rem;
+        border-radius: 10px;
+        background: rgba(0, 200, 0, 0.1);
+        color: rgba($color: #fff, $alpha: .4);
+        text-transform: uppercase;
+        z-index: 10;
+    }
+
+    &__up {
+        position: fixed;
+        bottom: 10px;
+        right: 10px;
+        padding: .5rem 1rem;
+        border-radius: 10px;
+        background: rgba(0, 200, 0, 0.1);
+        color: rgba($color: #fff, $alpha: .4);
+        text-transform: uppercase;
+        z-index: 10;
+    }
+    
+    &__nps {
+        padding: 1rem;
+        background-color: aqua;
+    }
+
+    &--inline-block {
+        display: inline-block;
+    }
+    
+    &--bg-red {
+        background-color: #F62119;
+    }
+    
+    &--bg-yellow {
+        background-color: #E7BA28;
+    }
+    
+    &--bg-green {
+        background-color: #1FB257;
+    }
+}

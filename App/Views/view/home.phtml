@@ -1,6 +1,7 @@
-<section class="user">
+<section class="center-xy user">
+    <h3 class="title">Login</h3>
+    
     <form method="post" action="/user">
-        <h3 class="title">Login</h3>
 
         <input class="input" name="username" type="text" placeholder="Usuário">
 
@@ -8,7 +9,7 @@
 
         <?php if(isset($_GET['erro']) && $_GET['erro'] == 1) { ?>
 
-            <p>Usuario ou senha invalidos</p>
+            <p class="text-red">Usuario ou senha invalidos</p>
 
         <?php } ?>
 

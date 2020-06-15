@@ -1,0 +1,10 @@
+.notas {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(3, 1fr);
+
+    @media (min-width: 568px) {
+        display: flex;
+        justify-content: space-between;
+    }
+}
