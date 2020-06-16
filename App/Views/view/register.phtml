@@ -4,27 +4,43 @@ if(!isset($_SESSION['autenticado']) && $_SESSION['autenticado'] != true || $_SES
     header('Location: /');
 }
 
+$timeZone = new DateTimeZone('America/Sao_Paulo');
+
+$date = new DateTime('now', $timeZone);
+
 ?>
 
-<a class="btn__back" href="/menu">Menu</a>
+<a class="btn__back" href="/logout">Sair</a>
 
 <?php if(isset($_GET['sucesso']) && $_GET['sucesso'] == 1) { ?>
     <div class="sucess">Usuário registrado com sucesso!</div>
 <?php } ?>
 
-<section class="center-xy user">
-    
-    <form method="post" action="/user-create">
-        <input class="input" type="text" name="username" placeholder="Usuario" required minlength="3" value="<?php if(isset($_GET['username'])) print $_GET['username'] ?>">
-        <input class="input" type="password" name="senha" placeholder="Senha" required minlength="3">
-        <input class="input" type="password" name="confirma" placeholder="Confirme a senha" required minlength="3">
+<section class="nps">
+    <div class="nps__box align-center">
+        <a class="btn__input" href="/nps-dia?data=<?= $date->format('Y-m-d') ?>">Nps do dia</a>
+        <a class="btn__input" href="/nps-mes?data=<?= $date->format('Y-m') ?>">Nps do mês</a>    
+        <a class="btn__input" href="/nps-ano?data=<?= $date->format('Y') ?>">Nps do ano</a> 
+        <a class="btn__input" href="/register">Registrar Usuário</a>
+        <a class="btn__input" href="/texto-edit">Alterar Textos</a>        
+    </div>
 
-        <?php if(isset($_GET['erro']) && $_GET['erro'] == 1) { ?>
-            <div class="text-red">Senhas incompatíveis</div>
-        <?php } ?>
-
+    <div class="nps__box">        
         
+        <div class="user">
+            <form method="post" action="/user-create">
+                <input class="input" type="text" name="username" placeholder="Usuario" required minlength="3" value="<?php if(isset($_GET['username'])) print $_GET['username'] ?>">
+                <input class="input" type="password" name="senha" placeholder="Senha" required minlength="3">
+                <input class="input" type="password" name="confirma" placeholder="Confirme a senha" required minlength="3">
 
-        <button class="btn__input" type="submit">Registrar</button>
-    </form>
+                <?php if(isset($_GET['erro']) && $_GET['erro'] == 1) { ?>
+                    <div class="text-red">Senhas incompatíveis</div>
+                <?php } ?>            
+
+                <button class="btn__input" type="submit">Registrar</button>
+            </form>
+        </div>
+        
+    </div>
+
 </section>

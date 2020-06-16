@@ -8,80 +8,95 @@ use App\Models\Nps;
 
 class NpsController extends Action {
 
-    public function index() {
-        $this->view->empty = false;
-
-        $this->render('nps');
-    }
-
-    public function show() {
+    public function showDia() {
         $npsDAO = new NpsDAO();
 
-        if(isset($_GET['target']) && $_GET['target'] == 'dia') {
-
+        if(isset($_POST['data'])) {
             $this->view->data = $_POST['data'];
+        } else {
+            $this->view->data = $_GET['data'];
+        }
 
-            $dataFormated = str_replace('-', '/', $this->view->data);
+        $dataFormated = str_replace('-', '/', $this->view->data);
 
-            $npsDia = $npsDAO->getNpsDia($dataFormated);
+        $npsDia = $npsDAO->getNpsDia($dataFormated);
 
-            if(count($npsDia) > 0) {
+        if(count($npsDia) > 0) {
 
-                $this->view->npsDia = $this->showNps($npsDia);
+            if(isset($_GET['order'])) {
+                $this->view->notasDia = $npsDAO->showNotas($dataFormated, $_GET['order']);
+            } else {
                 $this->view->notasDia = $npsDAO->showNotas($dataFormated);
-                $this->view->empty = false;
-
-                $this->render('/nps');
-
-            } else {
-
-                $this->view->empty = true;
-                $this->render('/nps');
-
             }
 
-    
-        } else if(isset($_GET['target']) && $_GET['target'] == 'mes') {
+            $this->view->npsDia = $this->showNps($npsDia);            
 
+            $this->render('/nps-dia');
+
+        } else {
+
+            $this->render('/nps-dia');
+
+        }
+    }
+
+    public function showMes() {
+
+        $npsDAO = new NpsDAO();
+
+        if(isset($_POST['data'])) {
             $this->view->data = $_POST['data'];
+        } else {
+            $this->view->data = $_GET['data'];
+        }
 
-            $dataFormated = str_replace('-', '/', $this->view->data);
+        $dataFormated = str_replace('-', '/', $this->view->data);
 
-            $npsMes = $npsDAO->getNpsMes($dataFormated);
+        $npsMes = $npsDAO->getNpsMes($dataFormated);
 
-            if(count($npsMes) > 0) {
+        if(count($npsMes) > 0) {
 
-                $this->view->npsMes = $this->showNps($npsMes);
-                $this->view->empty = false;
+            $this->view->npsMes = $this->showNps($npsMes);
+          
+            $dadosMes = $npsDAO->getGraficoMes($dataFormated);
+            
+            foreach($dadosMes as $diaMes) {
+                $result[] = $this->showNps($diaMes, $diaMes[0]->dia);
+            } 
+            
+            $this->view->graficoMes = $result;
+            
+            $this->render('/nps-mes');
 
-                $this->render('/nps');
+        } else {
 
-            } else {
+            $this->render('/nps-mes');
 
-                $this->view->empty = true;
-                $this->render('/nps');
+        }        
 
-            }
+    }
 
-        } else if(isset($_GET['target']) && $_GET['target'] == 'ano') {
+    public function showAno() {
+        
+        $npsDAO = new NpsDAO();
 
-            $data = $_POST['data'];
+        if(isset($_POST['data'])) {
+            $this->view->data = $_POST['data'];
+        } else {
+            $this->view->data = $_GET['data'];
+        }
 
-            $npsAno = $npsDAO->getNpsAno($data);
+        $npsAno = $npsDAO->getNpsAno($this->view->data);
 
-            if(count($npsAno) > 0) {
+        if(count($npsAno) > 0) {
 
-                $this->view->npsAno = $this->showNps($npsAno);
-                $this->view->empty = false;
+            $this->view->npsAno = $this->showNps($npsAno);
 
-                $this->render('/nps');
+            $this->render('/nps-ano');
 
-            } else {
+        } else {
 
-                $this->view->empty = true;
-                $this->render('/nps');
-
-            }
+            $this->render('/nps-ano');
 
         }
     }
@@ -91,7 +106,7 @@ class NpsController extends Action {
         return number_format($result, 2);
     }
 
-    public function showNps($args) {
+    public function showNps($args, $dia = null) {
 
         $detrators = null;
         $detrators_porc = null;
@@ -127,7 +142,8 @@ class NpsController extends Action {
             'detrators_porc' => $detrators_porc,
             'passives_porc' => $passives_porc,
             'promoters_porc' => $promoters_porc,
-            'nps_total' => $nps_total
+            'nps_total' => $nps_total,
+            'dia' => $dia
         );
     }
 

@@ -1,0 +1,40 @@
+<?php
+
+if(!isset($_SESSION['autenticado']) && $_SESSION['autenticado'] != true || $_SESSION['permissao'] != 'adm') {
+    header('Location: /');
+}
+
+$timeZone = new DateTimeZone('America/Sao_Paulo');
+
+$date = new DateTime('now', $timeZone);
+
+?>
+
+<a class="btn__back" href="/logout">Sair</a>
+
+<?php if(isset($_GET['sucesso']) && $_GET['sucesso'] == 1) { ?>
+    <div class="sucess">Mensagem inserida com sucesso!</div>
+<?php } ?>
+
+<section class="nps">
+    <div class="nps__box align-center">
+        <a class="btn__input" href="/nps-dia?data=<?= $date->format('Y-m-d') ?>">Nps do dia</a>
+        <a class="btn__input" href="/nps-mes?data=<?= $date->format('Y-m') ?>">Nps do mês</a>    
+        <a class="btn__input" href="/nps-ano?data=<?= $date->format('Y') ?>">Nps do ano</a> 
+        <a class="btn__input" href="/register">Registrar Usuário</a>  
+        <a class="btn__input" href="/texto-edit">Alterar Textos</a>      
+    </div>
+
+    <div class="nps__box">        
+        
+        <div>
+            <form method="post" action="/texto-update">
+                <textarea class="input" name="texto" placeholder="Digite o texto..."></textarea>
+
+                <button class="btn__input" type="submit">Enviar</button>
+            </form>
+        </div>
+        
+    </div>
+
+</section>

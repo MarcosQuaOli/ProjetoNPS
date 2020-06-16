@@ -70,19 +70,45 @@
         background-color: aqua;
     }
 
-    &--inline-block {
-        display: inline-block;
-    }
-    
-    &--bg-red {
-        background-color: #F62119;
-    }
-    
-    &--bg-yellow {
-        background-color: #E7BA28;
-    }
-    
-    &--bg-green {
-        background-color: #1FB257;
+    &__avalia {
+        &-1 {
+            background-color: #F75549;
+        }
+        
+        &-2 {
+            background-color: #FF595C;
+        }
+
+        &-3 {
+            background-color: #FF765D;
+        }
+
+        &-4 {
+            background-color: #FAB45B;
+        }
+
+        &-5 {
+            background-color: #FECA41;
+        }
+
+        &-6 {
+            background-color: #EECD3A;
+        }
+
+        &-7 {
+            background-color: #C5D12F;
+        }
+
+        &-8 {
+            background-color: #96D22C;
+        }
+
+        &-9 {
+            background-color: #53D421;
+        }
+
+        &-10 {
+            background-color: #16BB1E;
+        }
     }
 }

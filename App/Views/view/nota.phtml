@@ -6,23 +6,23 @@ if(!isset($_SESSION['autenticado']) && $_SESSION['autenticado'] != true) {
 
 ?>
 
-<section class="mt-5">
+<section class="mt-10">
     <a class="btn__back" href="/logout">Sair</a>
 
-    <h1 class="text-size align-center px-10">Em uma escala de 1 a 10 o quanto você indicaria a experiência Hórus para um amigo?</h1>
+    <h1 class="text-size align-center px-10"><?= $this->view->texto ?></h1>
 
     <div class="mt-5 align-center px-10">
         <ul class="notas">
-            <li><button class="btn btn--bg-red">1</button></li>
-            <li><button class="btn btn--bg-red">2</button></li>
-            <li><button class="btn btn--bg-red">3</button></li>
-            <li><button class="btn btn--bg-red">4</button></li>
-            <li><button class="btn btn--bg-red">5</button></li>
-            <li><button class="btn btn--bg-red">6</button></li>
-            <li><button class="btn btn--bg-yellow">7</button></li>
-            <li><button class="btn btn--bg-yellow">8</button></li>
-            <li><button class="btn btn--bg-green">9</button></li>
-            <li><button class="btn btn--bg-green">10</button></li>
+            <li><button class="btn btn__avalia-1">1</button></li>
+            <li><button class="btn btn__avalia-2">2</button></li>
+            <li><button class="btn btn__avalia-3">3</button></li>
+            <li><button class="btn btn__avalia-4">4</button></li>
+            <li><button class="btn btn__avalia-5">5</button></li>
+            <li><button class="btn btn__avalia-6">6</button></li>
+            <li><button class="btn btn__avalia-7">7</button></li>
+            <li><button class="btn btn__avalia-8">8</button></li>
+            <li><button class="btn btn__avalia-9">9</button></li>
+            <li><button class="btn btn__avalia-10">10</button></li>
         </ul>
     </div>
 </section>

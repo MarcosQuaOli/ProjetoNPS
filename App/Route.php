@@ -20,12 +20,6 @@ class Route extends Bootstrap {
 			'action' => 'nota'
 		);
 
-		$routes['menu'] = array(
-			'route' => '/menu',
-			'controller' => 'viewController',
-			'action' => 'menu'
-		);
-
 		$routes['agradecimento'] = array(
 			'route' => '/agradecimento',
 			'controller' => 'viewController',
@@ -38,10 +32,22 @@ class Route extends Bootstrap {
 			'action' => 'register'
 		);
 
-		$routes['nps'] = array(
-			'route' => '/nps',
+		$routes['nps-dia'] = array(
+			'route' => '/nps-dia',
 			'controller' => 'npsController',
-			'action' => 'index'
+			'action' => 'showDia'
+		);
+
+		$routes['nps-mes'] = array(
+			'route' => '/nps-mes',
+			'controller' => 'npsController',
+			'action' => 'showMes'
+		);
+
+		$routes['nps-ano'] = array(
+			'route' => '/nps-ano',
+			'controller' => 'npsController',
+			'action' => 'showAno'
 		);
 
 		$routes['nps-create'] = array(
@@ -78,6 +84,18 @@ class Route extends Bootstrap {
 			'route' => '/logout',
 			'controller' => 'userController',
 			'action' => 'logout'
+		);
+
+		$routes['texto-edit'] = array(
+			'route' => '/texto-edit',
+			'controller' => 'viewController',
+			'action' => 'textoEdit'
+		);
+
+		$routes['texto-update'] = array(
+			'route' => '/texto-update',
+			'controller' => 'textController',
+			'action' => 'update'
 		);
 
 		$this->setRoutes($routes);

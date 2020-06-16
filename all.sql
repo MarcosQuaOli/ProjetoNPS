@@ -12,3 +12,9 @@ create table nps(
     usuario varchar(50) not null,
     created_at datetime not null DEFAULT CURRENT_TIMESTAMP
 );
+
+create table texts(
+	id int not null PRIMARY KEY AUTO_INCREMENT,
+    texto text not null,
+    create_at datetime not null DEFAULT CURRENT_TIMESTAMP
+);

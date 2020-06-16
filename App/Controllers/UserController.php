@@ -8,7 +8,13 @@ use App\Models\User;
 
 class UserController extends Action {
 
-	public function validate() {	
+	public function validate() {
+
+		$date = new \DateTime('now');
+
+		$dataFormated = $date->format('Y-m-d');
+
+		echo $dataFormated;
 
 		$userDAO = new UserDAO();
 
@@ -21,7 +27,7 @@ class UserController extends Action {
 			$_SESSION['permissao'] = $user[0]->permissao;
 
 			if($user[0]->permissao == 'adm') {
-				header('Location: /menu');	
+				header("Location: /nps-dia?data=".$dataFormated);	
 			} else if($user[0]->permissao == 'usuario') {
 				header('Location: /nota');				
 			}

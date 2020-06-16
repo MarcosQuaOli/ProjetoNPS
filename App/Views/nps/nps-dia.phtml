@@ -1,0 +1,153 @@
+<?php
+
+if(!isset($_SESSION['autenticado']) && $_SESSION['autenticado'] != true || $_SESSION['permissao'] != 'adm') {
+    header('Location: /logout');
+}
+
+$timeZone = new DateTimeZone('America/Sao_Paulo');
+
+$date = new DateTime('now', $timeZone);
+
+?>
+
+<a class="btn__back" href="/logout">Sair</a>
+
+<section class="nps">
+    <div class="nps__box align-center">
+        <a class="btn__input" href="/nps-dia?data=<?= $date->format('Y-m-d') ?>">Nps do dia</a>
+        <a class="btn__input" href="/nps-mes?data=<?= $date->format('Y-m') ?>">Nps do mês</a>    
+        <a class="btn__input" href="/nps-ano?data=<?= $date->format('Y') ?>">Nps do ano</a> 
+        <a class="btn__input" href="/register">Registrar Usuário</a>    
+        <a class="btn__input" href="/texto-edit">Alterar Textos</a>   
+    </div>
+
+    <div class="nps__box">
+
+        <!-- Nps do dia -->
+        <div>
+            <div class="grid grid--gap">
+                <div class="nps__search">
+                    <form method="post" action="/nps-dia">
+                        <input class="input" type="date" name="data" max="<?= $date->format('Y-m-d'); ?>" value="<?php
+                            if(isset($this->view->data) && !empty($this->view->data)) echo $this->view->data; else echo $date->format('Y-m-d'); 
+                        ?>">
+                
+                        <button class="btn__input nps__btn" type="submit">Consultar</button>
+                    </form>
+                </div>
+
+                <?php if(isset($this->view->npsDia) && !empty($this->view->npsDia)) { ?>
+                    <div class="grafico">
+                        <div class="grafico__dados">
+                            <span class="grafico__text">% de promotores</span>
+                            <div class="grafico__box grafico__box--bg-promo">
+                                <span class="center-xy"><?= $this->view->npsDia['promoters_porc'] ?>%</span>
+                            </div>
+                        </div>
+
+                        <div class="grafico__dados">
+                            <span class="grafico__text">% de neutros</span>
+                            <div class="grafico__box grafico__box--bg-neutro">
+                                <span class="center-xy"><?= $this->view->npsDia['passives_porc'] ?>%</span>
+                            </div>
+                        </div>
+
+                        <div class="grafico__dados">
+                            <span class="grafico__text">% de detratores</span>
+                            <div class="grafico__box grafico__box--bg-detra">
+                                <span class="center-xy"><?= $this->view->npsDia['detrators_porc'] ?>%</span>
+                            </div>
+                        </div>
+
+                        <div class="grafico__dados">
+                            <span class="grafico__text">Quantidade de promotores</span>
+                            <div class="grafico__box grafico__box--bg-promo">
+                                <span class="center-xy"><?= $this->view->npsDia['promoters'] ?></span>
+                            </div>
+                        </div>
+
+                        <div class="grafico__dados">
+                            <span class="grafico__text">Quantidade de neutros</span>
+                            <div class="grafico__box grafico__box--bg-neutro">
+                                <span class="center-xy"><?= $this->view->npsDia['passives'] ?></span>
+                            </div>
+                        </div>
+
+                        <div class="grafico__dados">
+                            <span class="grafico__text">Quantidade de detratores</span>
+                            <div class="grafico__box grafico__box--bg-detra">
+                                <span class="center-xy"><?= $this->view->npsDia['detrators'] ?></span>
+                            </div>
+                        </div>   
+                        
+                        <div class="grafico__dados">
+                            <div class="grafico__box" style="background-color:<?php 
+                                    if($this->view->npsDia['nps_total'] > 75) 
+                                        echo "#1FB257";
+                                    else if($this->view->npsDia['nps_total'] >= 40 && $this->view->npsDia['nps_total'] <= 75)
+                                        echo "#0089CD";
+                                    else if($this->view->npsDia['nps_total'] <= 0)
+                                        echo "#F62119";
+                                    else echo "#E7BA28";
+                                ?>">
+                                <span class="center-xy">Nps: <?= $this->view->npsDia['nps_total'] ?>%</span>
+                            </div>
+                        </div>
+
+                        <div class="grafico__dados">
+                            <div class="grafico__circle">
+                                <div class="grafico__inside"><div class="center-xy"><?= $this->view->npsDia['nps_total'] ?></div></div>
+
+                                <div id="porcion1" class="grafico__recorte">
+                                    <div class="grafico__quesito"></div>
+                                </div>
+
+                                <div id="porcion2" class="grafico__recorte">
+                                    <div class="grafico__quesito"></div>
+                                </div>
+
+                                <div id="porcion3" class="grafico__recorte">
+                                    <div class="grafico__quesito"></div>
+                                </div>
+                            </div>
+                        </div>                       
+                        
+                    </div>   
+
+                    <div class="nps__content">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="table__line"><a href="/nps-dia?order=nota&data=<?= $this->view->data ?>">Nota</a></th>
+                                    <th class="table__line"><a href="/nps-dia?order=created_at desc&data=<?= $this->view->data ?>">Data</a></th>
+                                    <th class="table__line">Usuário</th>
+                                </tr>
+                            </thead>
+            
+                            <tbody>
+                                <?php foreach($this->view->notasDia as $nota) { ?>
+                                    <tr>
+                                        <td class="table__line"><?= $nota->nota ?></td>
+                                        <td class="table__line"><?= date('d-m-Y H:i', strtotime($nota->created_at))  ?></td>
+                                        <td class="table__line"><?= $nota->usuario ?></td>
+                                        <td class="table__line"><a class="text-red" href="/nps-delete?id=<?= $nota->id ?>">X</a></td>
+                                    </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>                                     
+                    </div>
+                <?php } ?>
+
+                <?php if(!isset($this->view->npsDia) && empty($this->view->npsDia)) { ?>
+                    <h3 class="align-center mt-5">Não existe nenhuma avaliação para essa data.</h3>
+                <?php } ?>
+            </div>            
+
+            <a class="btn__up" href="#"><i class="fa fa-arrow-up" aria-hidden="true"></i></a>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- <script src="src/js/consulta.js"></script> -->

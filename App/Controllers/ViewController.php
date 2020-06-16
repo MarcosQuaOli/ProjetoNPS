@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 use MF\Controller\Action;
+use App\DAO\TextoDAO;
+use App\Models\Texto;
 
 class ViewController extends Action {
 
@@ -14,12 +16,13 @@ class ViewController extends Action {
 
 	public function nota() {
 
+		$textoDAO = new TextoDAO();
+
+		$result = $textoDAO->show();
+
+		$this->view->texto = $result[0]->texto;
+
 		$this->render('nota');
-	}
-
-	public function menu() {
-
-		$this->render('menu');
 	}
 
 	public function register() {
@@ -30,6 +33,10 @@ class ViewController extends Action {
 	public function agradecimento() {
 
 		$this->render('agradecimento');
+	}
+
+	public function textoEdit() {
+		$this->render('texto');
 	}
 
 }
