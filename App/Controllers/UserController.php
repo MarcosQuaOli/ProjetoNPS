@@ -29,6 +29,7 @@ class UserController extends Action {
 			if($user[0]->permissao == 'adm') {
 				header("Location: /nps-dia?data=".$dataFormated);	
 			} else if($user[0]->permissao == 'usuario') {
+
 				header('Location: /nota');				
 			}
 

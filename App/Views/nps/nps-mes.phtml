@@ -78,12 +78,6 @@ $date = new DateTime('now', $timeZone);
                             <div class="grafico__box grafico__box--bg-detra">
                                 <span class="center-xy"><?= $this->view->npsMes['detrators'] ?></span>
                             </div>
-                        </div>                            
-
-                        <div class="grafico__dados">
-                            <div class="grafico__circle">
-
-                            </div>
                         </div>
                         
                         <div class="grafico__dados">
@@ -99,6 +93,24 @@ $date = new DateTime('now', $timeZone);
                                 <span class="center-xy">nps: <?= $this->view->npsMes['nps_total'] ?>%</span>
                             </div>
                         </div>
+                        
+                        <div class="grafico__dados">
+                            <div class="grafico__circle">
+                                <div class="grafico__inside"><div class="center-xy"></div></div>
+
+                                <div id="porcion1" class="grafico__recorte">
+                                    <div class="grafico__quesito"></div>
+                                </div>
+
+                                <div id="porcion2" class="grafico__recorte">
+                                    <div class="grafico__quesito"></div>
+                                </div>
+
+                                <div id="porcion3" class="grafico__recorte">
+                                    <div class="grafico__quesito"></div>
+                                </div>
+                            </div>
+                        </div>   
                     </div>
 
                     <div class="grafico__container">                        
@@ -112,7 +124,7 @@ $date = new DateTime('now', $timeZone);
                                         <div class="grafico__line" style="width: <?= $graficoDia['detrators_porc'] ?>% ;"></div>
                                         <div class="grafico__line" style="width: <?= $graficoDia['passives_porc'] ?>% ;"></div>
                                         <div class="grafico__line" style="width: <?= $graficoDia['promoters_porc'] ?>% ;"></div>
-                                        <span class="grafico__span"><?= $graficoDia['dia'] ?></span>
+                                        <span class="grafico__span"><?= $graficoDia['data'] ?></span>
                                     </div>
                                 </div>
                             <?php } ?>
@@ -135,7 +147,7 @@ $date = new DateTime('now', $timeZone);
                                             <span class=""><?= $graficoDia['nps_total'] ?>%</span>
                                         </div>
 
-                                        <span class="grafico__span"><?= $graficoDia['dia'] ?></span>
+                                        <span class="grafico__span"><?= $graficoDia['data'] ?></span>
                                     </div>
                                 </div>
                             <?php } ?>

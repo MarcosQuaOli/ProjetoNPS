@@ -92,6 +92,15 @@ class NpsController extends Action {
 
             $this->view->npsAno = $this->showNps($npsAno);
 
+            
+            $dadosAno = $npsDAO->getGraficoAno($this->view->data);
+            
+            foreach($dadosAno as $mesAno) {
+                $result[] = $this->showNps($mesAno, $mesAno[0]->mes);
+            } 
+            
+            $this->view->graficoAno = $result;
+            
             $this->render('/nps-ano');
 
         } else {
@@ -143,7 +152,7 @@ class NpsController extends Action {
             'passives_porc' => $passives_porc,
             'promoters_porc' => $promoters_porc,
             'nps_total' => $nps_total,
-            'dia' => $dia
+            'data' => $dia
         );
     }
 

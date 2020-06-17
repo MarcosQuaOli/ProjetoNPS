@@ -82,12 +82,6 @@ $date = new DateTime('now', $timeZone);
                             <div class="grafico__box grafico__box--bg-detra">
                                 <span class="center-xy"><?= $this->view->npsAno['detrators'] ?></span>
                             </div>
-                        </div>                            
-
-                        <div class="grafico__dados">
-                            <div class="grafico__circle">
-
-                            </div>
                         </div>
                         
                         <div class="grafico__dados">
@@ -103,6 +97,25 @@ $date = new DateTime('now', $timeZone);
                                 <span class="center-xy">nps: <?= $this->view->npsAno['nps_total'] ?>%</span>
                             </div>
                         </div>
+
+                        
+                        <div class="grafico__dados">
+                            <div class="grafico__circle">
+                                <div class="grafico__inside"><div class="center-xy"></div></div>
+
+                                <div id="porcion1" class="grafico__recorte">
+                                    <div class="grafico__quesito"></div>
+                                </div>
+
+                                <div id="porcion2" class="grafico__recorte">
+                                    <div class="grafico__quesito"></div>
+                                </div>
+
+                                <div id="porcion3" class="grafico__recorte">
+                                    <div class="grafico__quesito"></div>
+                                </div>
+                            </div>
+                        </div>   
                     </div>
                 <?php } ?>
 

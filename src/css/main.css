@@ -160,7 +160,7 @@ img {
 .page {
   min-height: 100vh;
   color: #fff;
-  background: linear-gradient(-45deg, #000, #0c850c, #000, #0c850c, #004500, #000);
+  background: linear-gradient(-45deg, #202020, #0f700f, #202020);
   background-size: 400% 400%;
   -webkit-animation: gradient 15s ease-in-out infinite;
           animation: gradient 15s ease-in-out infinite;
@@ -366,6 +366,9 @@ img {
 .mt-10 {
   margin-top: 10rem; }
 
+.mt-200 {
+  margin-top: 200px; }
+
 .mx-1 {
   margin: 0 .5rem; }
 
@@ -394,7 +397,10 @@ img {
   margin: 0 auto; }
 
 .logo {
-  height: 80px; }
+  position: absolute;
+  top: -50px; }
+  .logo__img {
+    height: 250px; }
 
 .w-70 {
   width: 70%; }
@@ -413,12 +419,14 @@ img {
   text-shadow: 0 0 5px rgba(158, 157, 157, 0.7); }
 
 .nps {
-  margin: 1rem; }
+  margin: 1rem;
+  margin-top: 100px; }
   @media (min-width: 768px) {
     .nps {
       display: grid;
       grid-template-columns: 1fr 3fr;
-      gap: 1rem; } }
+      gap: 1rem;
+      margin-top: 150px; } }
   .nps__box {
     background-color: rgba(255, 255, 255, 0.3);
     border-radius: 10px;

@@ -1,8 +1,8 @@
 .page {
     min-height: 100vh;   
     color: #fff;    
-	//background: linear-gradient(-45deg, rgb(36, 34, 34), rgb(38, 100, 34), rgb(38, 100, 34),rgb(36, 34, 34));
-	background: linear-gradient(-45deg, #000, #0c850c, #000, #0c850c, #004500, #000);
+    background: linear-gradient(-45deg, #202020, #0f700f, #202020);
+    //background: linear-gradient(-45deg, rgb(32, 32, 32), #0c850c, rgb(32, 32, 32), #0c850c, #004500, rgb(32, 32, 32));
 	background-size: 400% 400%;
     animation: gradient 15s ease-in-out infinite;
     letter-spacing: .5px; 
