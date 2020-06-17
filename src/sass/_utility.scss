@@ -14,28 +14,8 @@
     text-align: center;
 }
 
-.mt-2 {
-    margin-top: 2rem;
-}
-
-.mb-1 {
-    margin-bottom: 1rem;
-}
-
 .mt-5 {
     margin-top: 5rem;
-}
-
-.mt-10 {
-    margin-top: 10rem;
-}
-
-.mt-200 {
-    margin-top: 200px;
-}
-
-.mx-1 {
-    margin: 0 .5rem;
 }
 
 .px-10 {   
@@ -68,16 +48,11 @@
 }
 
 .logo {
-    position: absolute;
-    top: -50px;
-
-    &__img {
-        height: 250px;
-    }
+    height: 100px;    
 }
 
-.w-70 {
-    width: 70%;
+.texto {
+    margin-top: 20vh;
 }
 
 .center-xy {

@@ -22,7 +22,7 @@ button:focus {
   outline: 0; }
 
 img {
-  max-width: 100%; }
+  width: 100%; }
 
 @-webkit-keyframes gradient {
   0% {
@@ -115,6 +115,15 @@ img {
     color: rgba(255, 255, 255, 0.4);
     text-transform: uppercase;
     z-index: 10; }
+    .btn__back--home {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      border-radius: 5px;
+      background: transparent;
+      z-index: 10;
+      width: 40px;
+      height: 30px; }
   .btn__up {
     position: fixed;
     bottom: 10px;
@@ -232,8 +241,7 @@ img {
     display: none;
     grid-area: grafico;
     width: 100%;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.6); }
+    height: 100%; }
     @media (min-width: 768px) {
       .grafico__dados:nth-child(8) {
         display: block; } }
@@ -321,27 +329,6 @@ img {
     position: absolute;
     right: -30px; }
 
-#porcion1 {
-  z-index: 3; }
-
-#porcion2 {
-  z-index: 2;
-  background-color: transparent;
-  -webkit-transform: rotate(-55deg);
-          transform: rotate(-55deg); }
-  #porcion2 .grafico__quesito {
-    background-color: #FCB150;
-    clip: rect(0px, 200px, 100px, 100px); }
-
-#porcion3 {
-  z-index: 1;
-  /*background-color:green;*/ }
-  #porcion3 .grafico__quesito {
-    clip: rect(0px, 100px, 200px, 0px);
-    background-color: #11A8AB;
-    -webkit-transform: rotate(-150deg);
-            transform: rotate(-150deg); }
-
 .text-red {
   color: red; }
 
@@ -354,23 +341,8 @@ img {
 .align-center {
   text-align: center; }
 
-.mt-2 {
-  margin-top: 2rem; }
-
-.mb-1 {
-  margin-bottom: 1rem; }
-
 .mt-5 {
   margin-top: 5rem; }
-
-.mt-10 {
-  margin-top: 10rem; }
-
-.mt-200 {
-  margin-top: 200px; }
-
-.mx-1 {
-  margin: 0 .5rem; }
 
 .px-10 {
   padding-left: 5%;
@@ -397,13 +369,10 @@ img {
   margin: 0 auto; }
 
 .logo {
-  position: absolute;
-  top: -50px; }
-  .logo__img {
-    height: 250px; }
+  height: 100px; }
 
-.w-70 {
-  width: 70%; }
+.texto {
+  margin-top: 20vh; }
 
 .center-xy {
   position: absolute;
@@ -419,14 +388,12 @@ img {
   text-shadow: 0 0 5px rgba(158, 157, 157, 0.7); }
 
 .nps {
-  margin: 1rem;
-  margin-top: 100px; }
+  margin: 1rem; }
   @media (min-width: 768px) {
     .nps {
       display: grid;
       grid-template-columns: 1fr 3fr;
-      gap: 1rem;
-      margin-top: 150px; } }
+      gap: 1rem; } }
   .nps__box {
     background-color: rgba(255, 255, 255, 0.3);
     border-radius: 10px;
@@ -448,25 +415,134 @@ img {
     margin-top: 2rem; }
 
 .table {
-  width: 80%;
   border-collapse: collapse;
   text-align: center;
-  overflow-x: scroll;
   margin: 0 auto; }
   @media (max-width: 578px) {
     .table {
       -webkit-box-ordinal-group: 3;
           -ms-flex-order: 2;
               order: 2; } }
-  @media (min-width: 1200px) {
-    .table {
-      width: 600px; } }
   .table tr:hover {
     background-color: rgba(255, 255, 255, 0.3); }
   .table__line {
-    padding: .5rem;
+    padding: .8rem;
     border: 1px solid #ddd;
-    background-color: rgba(0, 0, 0, 0.1); }
+    background-color: rgba(0, 0, 0, 0.2); }
+
+.evolucao {
+  height: 250px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  color: rgba(0, 0, 0, 0.8);
+  overflow: auto; }
+  .evolucao__total {
+    min-width: 200px;
+    height: 200; }
+  .evolucao__title {
+    text-align: center;
+    margin: 10px 0;
+    text-transform: uppercase;
+    letter-spacing: 1px; }
+    .evolucao__title--sm {
+      font-size: .9rem; }
+  .evolucao__guia {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    margin: 0 2rem; }
+    .evolucao__guia--sm {
+      margin: 0 .5rem; }
+  .evolucao__text {
+    margin-right: .5rem; }
+    .evolucao__text span {
+      height: 10px;
+      width: 20px;
+      display: inline-block;
+      margin-right: .5rem; }
+    .evolucao__text--sm {
+      margin-right: .3rem;
+      font-size: .8rem; }
+  .evolucao--bg-detrator {
+    background-color: #F62119; }
+  .evolucao--bg-passive {
+    background-color: #E7BA28; }
+  .evolucao--bg-promotor {
+    background-color: #1FB257; }
+  .evolucao--bg-nps {
+    background-color: #808080; }
+  .evolucao__inner {
+    height: 150px;
+    margin-top: 15px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10px, 25px));
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    position: relative; }
+    .evolucao__inner--width-flex {
+      width: 1000px; }
+    .evolucao__inner--nps {
+      padding-left: 30px;
+      margin-bottom: 1rem; }
+    .evolucao__inner--sm {
+      height: 130px;
+      grid-template-columns: repeat(auto-fit, minmax(20px, 40px));
+      padding-bottom: 20px;
+      -webkit-box-pack: center;
+          -ms-flex-pack: center;
+              justify-content: center;
+      gap: 10px; }
+  .evolucao__grafico {
+    margin-bottom: 30px; }
+    .evolucao__grafico--nps {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: reverse;
+          -ms-flex-direction: column-reverse;
+              flex-direction: column-reverse;
+      z-index: 10; }
+  .evolucao__data {
+    text-align: center;
+    font-size: .7rem;
+    -webkit-transform: rotate(-25deg);
+            transform: rotate(-25deg);
+    margin-top: 10px;
+    font-weight: bold; }
+    .evolucao__data--nps {
+      margin-top: 0;
+      margin-bottom: 10px; }
+  .evolucao__nps-line {
+    position: absolute;
+    height: 1px;
+    top: 0;
+    left: 10px;
+    right: 5px;
+    background-color: rgba(163, 162, 162, 0.6);
+    font-size: .7rem; }
+    .evolucao__nps-line--75 {
+      top: 25%; }
+    .evolucao__nps-line--50 {
+      top: 50%;
+      -webkit-transform: translateY(-50%);
+              transform: translateY(-50%); }
+    .evolucao__nps-line--25 {
+      bottom: 25%;
+      top: unset; }
+    .evolucao__nps-line--0 {
+      bottom: 0;
+      top: unset; }
 
 .notas {
   display: grid;

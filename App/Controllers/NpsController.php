@@ -29,7 +29,9 @@ class NpsController extends Action {
                 $this->view->notasDia = $npsDAO->showNotas($dataFormated);
             }
 
-            $this->view->npsDia = $this->showNps($npsDia);            
+            $this->view->npsDia = $this->showNps($npsDia);  
+            
+            $this->view->npsColor = $this->corNps($this->view->npsDia);
 
             $this->render('/nps-dia');
 
@@ -65,6 +67,8 @@ class NpsController extends Action {
             } 
             
             $this->view->graficoMes = $result;
+
+            $this->view->npsColor = $this->corNps($this->view->npsMes);
             
             $this->render('/nps-mes');
 
@@ -101,6 +105,8 @@ class NpsController extends Action {
             
             $this->view->graficoAno = $result;
             
+            $this->view->npsColor = $this->corNps($this->view->npsAno);
+            
             $this->render('/nps-ano');
 
         } else {
@@ -112,7 +118,21 @@ class NpsController extends Action {
 
     public function porcentagem($args, $total) {
         $result = ($args * 100) / $total;
-        return number_format($result, 2);
+        return number_format($result, 0);
+    }
+
+    public function corNps($value) {
+        if($value['nps_total'] > 75)                                     
+            return "#1FB257";
+
+        else if($value['nps_total'] >= 40 && $value['nps_total'] <= 75)
+            return "#0089CD";
+
+        else if($value['nps_total'] <= 0)
+            return "#F62119";
+
+        else
+            return "#E7BA28";
     }
 
     public function showNps($args, $dia = null) {

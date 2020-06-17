@@ -31,9 +31,13 @@ $date = new DateTime('now', $timeZone);
                 <div class="nps__search">
                     <form method="post" action="/nps-ano">
                         <select class="input" name="data">
+
                             <?php foreach($years as $year) { ?>
+
                                 <option value="<?= $year ?>"><?= $year ?></option>
+
                             <?php } ?>
+
                         </select>
 
                         <button class="btn__input nps__btn" type="submit">Consultar</button>
@@ -41,6 +45,7 @@ $date = new DateTime('now', $timeZone);
                 </div>
 
                 <?php if(isset($this->view->npsAno) && !empty($this->view->npsAno)) { ?>
+
                     <div class="grafico">
                         <div class="grafico__dados">
                             <span class="grafico__text">% de promotores</span>
@@ -85,43 +90,99 @@ $date = new DateTime('now', $timeZone);
                         </div>
                         
                         <div class="grafico__dados">
-                            <div class="grafico__box" style="background-color:<?php 
-                                    if($this->view->npsAno['nps_total'] > 75) 
-                                        echo "#1FB257";
-                                    else if($this->view->npsAno['nps_total'] >= 40 && $this->view->npsAno['nps_total'] <= 75)
-                                        echo "#0089CD";
-                                    else if($this->view->npsAno['nps_total'] <= 0)
-                                        echo "#F62119";
-                                    else echo "#E7BA28";
-                                ?>">
-                                <span class="center-xy">nps: <?= $this->view->npsAno['nps_total'] ?>%</span>
+                            <div class="grafico__box" style="background-color:<?= $this->view->npsColor ?>">
+                                <span class="center-xy">nps: <?= $this->view->npsAno['nps_total'] ?></span>
                             </div>
                         </div>
-
                         
                         <div class="grafico__dados">
-                            <div class="grafico__circle">
-                                <div class="grafico__inside"><div class="center-xy"></div></div>
+                            <div class="evolucao evolucao__total">
+                                <h2 class="evolucao__title evolucao__title--sm">Grafico de nps anual</h2>
 
-                                <div id="porcion1" class="grafico__recorte">
-                                    <div class="grafico__quesito"></div>
+                                <div class="evolucao__guia evolucao__guia--sm">
+                                    <p class="evolucao__text evolucao__text--sm"><span class="evolucao--bg-detrator"></span>Detratores</p>
+                                    <p class="evolucao__text evolucao__text--sm"><span class="evolucao--bg-passive"></span>Passivos</p>
+                                    <p class="evolucao__text evolucao__text--sm"><span class="evolucao--bg-promotor"></span>Promotores</p>
                                 </div>
 
-                                <div id="porcion2" class="grafico__recorte">
-                                    <div class="grafico__quesito"></div>
-                                </div>
+                                <div class="evolucao__inner evolucao__inner--sm">
+                                    <div class="evolucao__grafico--nps">
+                                        <div class="evolucao--bg-detrator" style="height: <?= $this->view->npsAno['detrators_porc'] . "%" ?> "></div>
+                                    </div>
 
-                                <div id="porcion3" class="grafico__recorte">
-                                    <div class="grafico__quesito"></div>
+                                    <div class="evolucao__grafico--nps">
+                                        <div class="evolucao--bg-passive" style="height: <?= $this->view->npsAno['passives_porc'] . "%" ?> "></div>
+                                    </div>
+
+                                    <div class="evolucao__grafico--nps">
+                                        <div class="evolucao--bg-promotor" style="height: <?= $this->view->npsAno['promoters_porc'] . "%" ?> "></div>
+                                    </div>
+
                                 </div>
                             </div>
-                        </div>   
+                        </div>    
                     </div>
+
+                    <div class="evolucao">
+                        <h2 class="evolucao__title">Grafico de evolucao anual em %</h2>
+
+                        <div class="evolucao__guia">
+                            <p class="evolucao__text"><span class="evolucao--bg-detrator"></span>Detratores</p>
+                            <p class="evolucao__text"><span class="evolucao--bg-passive"></span>Passivos</p>
+                            <p class="evolucao__text"><span class="evolucao--bg-promotor"></span>Promotores</p>
+                        </div>
+
+                        <div class="evolucao__inner">
+
+                            <?php foreach($this->view->graficoAno as $graficoAno) { ?>
+
+                                <div class="evolucao__grafico">
+                                    <div class="evolucao--bg-promotor" style="height: <?= $graficoAno['promoters_porc'] . "%" ?> "></div>
+                                    <div class="evolucao--bg-passive" style="height: <?= $graficoAno['passives_porc'] . "%" ?> "></div>
+                                    <div class="evolucao--bg-detrator" style="height: <?= $graficoAno['detrators_porc'] . "%" ?> "></div>
+                                    <div class="evolucao__data"><?= $graficoAno['data']?></div>
+                                </div>
+
+                            <?php } ?>
+
+                        </div>
+                    </div>
+
+                    <div class="evolucao">
+                        <h2 class="evolucao__title">Grafico de evolucao anual do Nps</h2>
+
+                        <div class="evolucao__guia">
+                            <p class="evolucao__text"><span class="evolucao--bg-nps"></span>Nps mês a mês</p>
+                        </div>
+
+                        <div class="evolucao__inner evolucao__inner--nps">
+
+                            <div class="evolucao__nps-line">100</div>
+                            <div class="evolucao__nps-line evolucao__nps-line--75">75</div>
+                            <div class="evolucao__nps-line evolucao__nps-line--50">50</div>
+                            <div class="evolucao__nps-line evolucao__nps-line--25">25</div>
+                            <div class="evolucao__nps-line evolucao__nps-line--0">0</div>
+
+                            <?php foreach($this->view->graficoAno as $graficoAno) { ?>
+
+                                <div class="evolucao__grafico--nps">
+                                    <div class="evolucao--bg-nps" style="height: <?= $graficoAno['nps_total'] . "%" ?> "></div>
+                                    <div class="evolucao__data evolucao__data--nps"><?= $graficoAno['data']?></div>
+                                </div>
+
+                            <?php } ?>                            
+
+                        </div>
+                    </div>
+
                 <?php } ?>
 
                 <?php if(!isset($this->view->npsAno) && empty($this->view->npsAno)) { ?>
-                    <h3 class="mt-5">Não existe nenhuma avaliação para essa data.</h3>
+
+                    <h3 class="align-center mt-5">Não existe nenhuma avaliação para essa data.</h3>
+
                 <?php } ?>
+
             </div>
         </div>
         

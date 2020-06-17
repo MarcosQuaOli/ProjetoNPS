@@ -37,6 +37,7 @@ $date = new DateTime('now', $timeZone);
                 </div>
 
                 <?php if(isset($this->view->npsDia) && !empty($this->view->npsDia)) { ?>
+
                     <div class="grafico">
                         <div class="grafico__dados">
                             <span class="grafico__text">% de promotores</span>
@@ -81,37 +82,37 @@ $date = new DateTime('now', $timeZone);
                         </div>   
                         
                         <div class="grafico__dados">
-                            <div class="grafico__box" style="background-color:<?php 
-                                    if($this->view->npsDia['nps_total'] > 75) 
-                                        echo "#1FB257";
-                                    else if($this->view->npsDia['nps_total'] >= 40 && $this->view->npsDia['nps_total'] <= 75)
-                                        echo "#0089CD";
-                                    else if($this->view->npsDia['nps_total'] <= 0)
-                                        echo "#F62119";
-                                    else echo "#E7BA28";
-                                ?>">
-                                <span class="center-xy">Nps: <?= $this->view->npsDia['nps_total'] ?>%</span>
+                            <div class="grafico__box" style="background-color:<?= $this->view->npsColor ?>">
+                                <span class="center-xy">Nps: <?= $this->view->npsDia['nps_total'] ?></span>
                             </div>
                         </div>
 
                         <div class="grafico__dados">
-                            <div class="grafico__circle">
-                                <div class="grafico__inside"><div class="center-xy"><?= $this->view->npsDia['nps_total'] ?></div></div>
+                            <div class="evolucao evolucao__total">
+                                <h2 class="evolucao__title evolucao__title--sm">Grafico de nps diario</h2>
 
-                                <div id="porcion1" class="grafico__recorte">
-                                    <div class="grafico__quesito"></div>
+                                <div class="evolucao__guia evolucao__guia--sm">
+                                    <p class="evolucao__text evolucao__text--sm"><span class="evolucao--bg-detrator"></span>Detratores</p>
+                                    <p class="evolucao__text evolucao__text--sm"><span class="evolucao--bg-passive"></span>Passivos</p>
+                                    <p class="evolucao__text evolucao__text--sm"><span class="evolucao--bg-promotor"></span>Promotores</p>
                                 </div>
 
-                                <div id="porcion2" class="grafico__recorte">
-                                    <div class="grafico__quesito"></div>
-                                </div>
+                                <div class="evolucao__inner evolucao__inner--sm">
+                                    <div class="evolucao__grafico--nps">
+                                        <div class="evolucao--bg-detrator" style="height: <?= $this->view->npsDia['detrators_porc'] . "%" ?> "></div>
+                                    </div>
 
-                                <div id="porcion3" class="grafico__recorte">
-                                    <div class="grafico__quesito"></div>
+                                    <div class="evolucao__grafico--nps">
+                                        <div class="evolucao--bg-passive" style="height: <?= $this->view->npsDia['passives_porc'] . "%" ?> "></div>
+                                    </div>
+
+                                    <div class="evolucao__grafico--nps">
+                                        <div class="evolucao--bg-promotor" style="height: <?= $this->view->npsDia['promoters_porc'] . "%" ?> "></div>
+                                    </div>
+
                                 </div>
                             </div>
-                        </div>                       
-                        
+                        </div>                                         
                     </div>   
 
                     <div class="nps__content">
@@ -125,21 +126,28 @@ $date = new DateTime('now', $timeZone);
                             </thead>
             
                             <tbody>
+
                                 <?php foreach($this->view->notasDia as $nota) { ?>
+
                                     <tr>
                                         <td class="table__line"><?= $nota->nota ?></td>
                                         <td class="table__line"><?= date('d-m-Y H:i', strtotime($nota->created_at))  ?></td>
                                         <td class="table__line"><?= $nota->usuario ?></td>
                                         <td class="table__line"><a class="text-red" href="/nps-delete?id=<?= $nota->id ?>">X</a></td>
                                     </tr>
+
                                 <?php } ?>
+
                             </tbody>
                         </table>                                     
                     </div>
+
                 <?php } ?>
 
                 <?php if(!isset($this->view->npsDia) && empty($this->view->npsDia)) { ?>
+
                     <h3 class="align-center mt-5">Não existe nenhuma avaliação para essa data.</h3>
+
                 <?php } ?>
             </div>            
 

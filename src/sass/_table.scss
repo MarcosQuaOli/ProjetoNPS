@@ -1,16 +1,10 @@
 .table {
-    width: 80%;
     border-collapse: collapse;
     text-align: center;
-    overflow-x: scroll;
     margin: 0 auto;
 
     @media (max-width: 578px) {
         order: 2;
-    }
-
-    @media (min-width: 1200px) {
-        width: 600px;
     }
 
     tr:hover {
@@ -18,8 +12,8 @@
     }
     
     &__line {
-        padding: .5rem;
+        padding: .8rem;
         border: 1px solid #ddd;
-        background-color: rgba($color: #000, $alpha: .1);
+        background-color: rgba(0, 0, 0, 0.2);
     }
 }

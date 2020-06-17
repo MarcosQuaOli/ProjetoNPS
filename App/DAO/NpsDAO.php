@@ -17,7 +17,7 @@ class NpsDAO extends Connection {
 
     public function getNpsDia($data) {
 
-        $query = "select nota, DAY(created_at) as dia, count(*) as total from nps where DATE_FORMAT(created_at, '%Y/%m/%d') = '$data' group by nota";
+        $query = "select nota, DATE_FORMAT(created_at, '%d/%m') as dia, count(*) as total from nps where DATE_FORMAT(created_at, '%Y/%m/%d') = '$data' group by nota";
 
         return $this->select($query); 
 
@@ -25,7 +25,7 @@ class NpsDAO extends Connection {
 
     public function getNpsMes($data) {
 
-        $query = "select nota, MONTH(created_at) as mes, count(*) as total from nps where DATE_FORMAT(created_at, '%Y/%m') = '$data' group by nota";
+        $query = "select nota, DATE_FORMAT(created_at, '%m/%Y') as mes, count(*) as total from nps where DATE_FORMAT(created_at, '%Y/%m') = '$data' group by nota";
 
         return $this->select($query); 
 

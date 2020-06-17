@@ -51,6 +51,17 @@
         color: rgba($color: #fff, $alpha: .4);
         text-transform: uppercase;
         z-index: 10;
+
+        &--home {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            border-radius: 5px;
+            background: transparent;
+            z-index: 10;
+            width: 40px;
+            height: 30px;
+        }
     }
 
     &__up {

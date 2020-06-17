@@ -88,7 +88,6 @@
             grid-area: grafico;
             width: 100%;
             height: 100%;
-            background-color: rgba($color: #fff, $alpha: .6);
 
             @media (min-width: 768px) {
                 display: block;
@@ -211,31 +210,4 @@
         position: absolute;
         right: -30px;
     }
-}
-
-#porcion1 {
-    z-index:3;
-}
-
-#porcion2 {
-    z-index:2;
-    background-color:transparent;
-    transform: rotate(-55deg);
-
-    .grafico__quesito {
-      background-color: #FCB150;
-      clip: rect(0px, 200px, 100px, 100px);
-    }
-}
-
-#porcion3 {
-    z-index:1;
-    /*background-color:green;*/
-
-    .grafico__quesito {
-      clip: rect(0px,100px,200px,0px);
-      background-color: #11A8AB;
-      transform: rotate(-150deg);
-    }
-  
 }

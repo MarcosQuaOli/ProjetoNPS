@@ -13,7 +13,9 @@ $date = new DateTime('now', $timeZone);
 <a class="btn__back" href="/logout">Sair</a>
 
 <?php if(isset($_GET['sucesso']) && $_GET['sucesso'] == 1) { ?>
+
     <div class="sucess">Usuário registrado com sucesso!</div>
+
 <?php } ?>
 
 <section class="nps">
@@ -34,7 +36,9 @@ $date = new DateTime('now', $timeZone);
                 <input class="input" type="password" name="confirma" placeholder="Confirme a senha" required minlength="3">
 
                 <?php if(isset($_GET['erro']) && $_GET['erro'] == 1) { ?>
+
                     <div class="text-red">Senhas incompatíveis</div>
+                    
                 <?php } ?>            
 
                 <button class="btn__input" type="submit">Registrar</button>
