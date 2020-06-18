@@ -10,7 +10,7 @@ create table nps(
 	id int not null PRIMARY KEY AUTO_INCREMENT,
     nota int not null,
     usuario varchar(50) not null,
-    created_at datetime not null DEFAULT CURRENT_TIMESTAMP
+    created_at datetime not null
 );
 
 create table texts(
@@ -18,3 +18,5 @@ create table texts(
     texto text not null,
     create_at datetime not null DEFAULT CURRENT_TIMESTAMP
 );
+
+insert into table(texto)values('Em uma escala de 1 a 10 o quanto você indicaria a experiência Hórus para um amigo?');

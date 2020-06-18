@@ -4,7 +4,7 @@ if(!isset($_SESSION['autenticado']) && $_SESSION['autenticado'] != true) {
     header('Location: /');
 }
 
-$now = time();
+/* $now = time();
 if (isset($_SESSION['discard_after']) && $now > $_SESSION['discard_after']) {
     // this session has worn out its welcome; kill it and start a brand new one
     session_unset();
@@ -12,11 +12,11 @@ if (isset($_SESSION['discard_after']) && $now > $_SESSION['discard_after']) {
 }
 
 // either new or old, it should live at most for another hour
-$_SESSION['discard_after'] = $now + (3600 * 16);
+$_SESSION['discard_after'] = $now + (3600 * 16); */
 
 ?>
 
-<section class="texto">
+<section class="mt-5">
     <a class="btn__back--home" href="/logout"></a>
 
     <h1 class="text-size align-center px-10"><?= $this->view->texto ?></h1>

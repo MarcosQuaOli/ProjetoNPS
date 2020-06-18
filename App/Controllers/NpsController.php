@@ -6,6 +6,9 @@ use MF\Controller\Action;
 use App\DAO\NpsDAO;
 use App\Models\Nps;
 
+$timeZone = new \DateTimeZone('America/Sao_Paulo');
+$date = new \DateTime('now', $t);
+
 class NpsController extends Action {
 
     public function showDia() {
@@ -33,7 +36,9 @@ class NpsController extends Action {
             
             $this->view->npsColor = $this->corNps($this->view->npsDia);
 
-            $this->render('/nps-dia');
+            print_r($date);
+
+            //$this->render('/nps-dia');
 
         } else {
 
@@ -181,8 +186,13 @@ class NpsController extends Action {
         $npsDAO = new NpsDAO();
         $nps = new Nps();
 
+        $timeZone = new \DateTimeZone('America/Sao_Paulo');
+
+        $date = new \DateTime('now', $timeZone);
+
         $nps->__set('nota', $_GET['nota']);
         $nps->__set('usuario', $_SESSION['usuario']);
+        $nps->__set('created_at', $date->format('Y-m-d H:i:s'));
 
         $npsDAO->insert($nps);
 

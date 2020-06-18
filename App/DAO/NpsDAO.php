@@ -74,11 +74,12 @@ class NpsDAO extends Connection {
 
 	public function insert(Nps $nps) {
                 
-        $query = "insert into nps(nota, usuario)values(:nota, :usuario)";
+        $query = "insert into nps(nota, usuario, created_at)values(:nota, :usuario, :created_at)";
 
         $this->query($query, array(
             ':nota' => $nps->__get('nota'),
-            ':usuario' => $nps->__get('usuario')
+            ':usuario' => $nps->__get('usuario'),
+            ':created_at' => $nps->__get('created_at')
         ));
 
     }
