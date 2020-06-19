@@ -1,3 +1,11 @@
+<?php
+
+if(!isset($_SESSION['autenticado']) && $_SESSION['autenticado'] != true) {
+    header('Location: /');
+}
+
+?>
+
 <section>
     <h1 class="center-xy title">Obrigado pela sua colaboração!</h1>
 </section>

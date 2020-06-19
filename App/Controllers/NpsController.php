@@ -6,9 +6,6 @@ use MF\Controller\Action;
 use App\DAO\NpsDAO;
 use App\Models\Nps;
 
-$timeZone = new \DateTimeZone('America/Sao_Paulo');
-$date = new \DateTime('now', $t);
-
 class NpsController extends Action {
 
     public function showDia() {
@@ -32,13 +29,19 @@ class NpsController extends Action {
                 $this->view->notasDia = $npsDAO->showNotas($dataFormated);
             }
 
+            $dadosMes = $npsDAO->getGraficoMes($this->data->format('Y/m'));
+            
+            foreach($dadosMes as $diario) {
+                $result[] = $this->showNps($diario, $diario[0]->dia);
+            } 
+            
+            $this->view->graficoDiario = $result;
+
             $this->view->npsDia = $this->showNps($npsDia);  
             
             $this->view->npsColor = $this->corNps($this->view->npsDia);
 
-            print_r($date);
-
-            //$this->render('/nps-dia');
+            $this->render('/nps-dia');
 
         } else {
 
@@ -64,14 +67,14 @@ class NpsController extends Action {
         if(count($npsMes) > 0) {
 
             $this->view->npsMes = $this->showNps($npsMes);
-          
-            $dadosMes = $npsDAO->getGraficoMes($dataFormated);
+
+            $dadosAno = $npsDAO->getGraficoAno($this->data->format('Y'));
             
-            foreach($dadosMes as $diaMes) {
-                $result[] = $this->showNps($diaMes, $diaMes[0]->dia);
+            foreach($dadosAno as $mensal) {
+                $result[] = $this->showNps($mensal, $mensal[0]->mes);
             } 
             
-            $this->view->graficoMes = $result;
+            $this->view->graficoMensal = $result;
 
             $this->view->npsColor = $this->corNps($this->view->npsMes);
             
@@ -100,15 +103,14 @@ class NpsController extends Action {
         if(count($npsAno) > 0) {
 
             $this->view->npsAno = $this->showNps($npsAno);
-
             
-            $dadosAno = $npsDAO->getGraficoAno($this->view->data);
+            $dadosGeral = $npsDAO->getGraficoGeral();
             
-            foreach($dadosAno as $mesAno) {
-                $result[] = $this->showNps($mesAno, $mesAno[0]->mes);
+            foreach($dadosGeral as $dadosGeral) {
+                $result[] = $this->showNps($dadosGeral, $dadosGeral[0]->ano);
             } 
             
-            $this->view->graficoAno = $result;
+            $this->view->graficoAnual = $result;
             
             $this->view->npsColor = $this->corNps($this->view->npsAno);
             
@@ -186,13 +188,9 @@ class NpsController extends Action {
         $npsDAO = new NpsDAO();
         $nps = new Nps();
 
-        $timeZone = new \DateTimeZone('America/Sao_Paulo');
-
-        $date = new \DateTime('now', $timeZone);
-
         $nps->__set('nota', $_GET['nota']);
         $nps->__set('usuario', $_SESSION['usuario']);
-        $nps->__set('created_at', $date->format('Y-m-d H:i:s'));
+        $nps->__set('created_at', $this->data->format('Y-m-d H:i:s'));
 
         $npsDAO->insert($nps);
 

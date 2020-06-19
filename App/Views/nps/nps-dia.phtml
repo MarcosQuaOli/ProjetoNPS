@@ -1,12 +1,6 @@
 <?php
 
-if(!isset($_SESSION['autenticado']) && $_SESSION['autenticado'] != true || $_SESSION['permissao'] != 'adm') {
-    header('Location: /logout');
-}
-
-$timeZone = new DateTimeZone('America/Sao_Paulo');
-
-$date = new DateTime('now', $timeZone);
+require_once "App/Config.php";
 
 ?>
 
@@ -18,8 +12,7 @@ $date = new DateTime('now', $timeZone);
         <a class="btn__input" href="/nps-mes?data=<?= $date->format('Y-m') ?>">Nps do mês</a>    
         <a class="btn__input" href="/nps-ano?data=<?= $date->format('Y') ?>">Nps do ano</a> 
         <a class="btn__input" href="/register">Registrar Usuário</a>    
-        <a class="btn__input" href="/texto-edit">Alterar Textos</a>   
-        <a class="btn__input" href="/nota" target="_parent">Notas</a>   
+        <a class="btn__input" href="/texto-edit">Alterar Textos</a>  
     </div>
 
     <div class="nps__box">
@@ -116,6 +109,58 @@ $date = new DateTime('now', $timeZone);
                         </div>                                         
                     </div>   
 
+                    <div class="evolucao">
+                        <h2 class="evolucao__title">Grafico de evolução diario em %</h2>
+
+                        <div class="evolucao__guia">
+                            <p class="evolucao__text"><span class="evolucao--bg-detrator"></span>Detratores</p>
+                            <p class="evolucao__text"><span class="evolucao--bg-passive"></span>Passivos</p>
+                            <p class="evolucao__text"><span class="evolucao--bg-promotor"></span>Promotores</p>
+                        </div>
+
+                        <div class="evolucao__inner evolucao__inner--width-flex">
+
+                            <?php foreach($this->view->graficoDiario as $graficoDiario) { ?>
+
+                                <div class="evolucao__grafico">
+                                    <div class="evolucao--bg-promotor" style="height: <?= $graficoDiario['promoters_porc'] . "%" ?> "></div>
+                                    <div class="evolucao--bg-passive" style="height: <?= $graficoDiario['passives_porc'] . "%" ?> "></div>
+                                    <div class="evolucao--bg-detrator" style="height: <?= $graficoDiario['detrators_porc'] . "%" ?> "></div>
+                                    <div class="evolucao__data"><?= $graficoDiario['data']?></div>
+                                </div>
+
+                            <?php } ?>
+
+                        </div>
+                    </div>
+                    
+                    <div class="evolucao">
+                        <h2 class="evolucao__title">Grafico de evolução diario do Nps</h2>
+
+                        <div class="evolucao__guia">
+                            <p class="evolucao__text"><span class="evolucao--bg-nps"></span>Nps dia a dia</p>
+                        </div>
+
+                        <div class="evolucao__inner evolucao__inner--nps evolucao__inner--width-flex">
+
+                            <div class="evolucao__nps-line">100</div>
+                            <div class="evolucao__nps-line evolucao__nps-line--75">75</div>
+                            <div class="evolucao__nps-line evolucao__nps-line--50">50</div>
+                            <div class="evolucao__nps-line evolucao__nps-line--25">25</div>
+                            <div class="evolucao__nps-line evolucao__nps-line--0">0</div>
+
+                            <?php foreach($this->view->graficoDiario as $graficoDiario) { ?>
+
+                                <div class="evolucao__grafico--nps">
+                                    <div class="evolucao--bg-nps" style="height: <?= $graficoDiario['nps_total'] . "%" ?> "></div>
+                                    <div class="evolucao__data evolucao__data--nps"><?= $graficoDiario['data']?></div>
+                                </div>
+
+                            <?php } ?>                            
+
+                        </div>
+                    </div>
+
                     <div class="nps__content">
                         <table class="table">
                             <thead>
@@ -158,5 +203,3 @@ $date = new DateTime('now', $timeZone);
     </div>
 
 </section>
-
-<!-- <script src="src/js/consulta.js"></script> -->

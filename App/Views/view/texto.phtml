@@ -1,12 +1,6 @@
 <?php
 
-if(!isset($_SESSION['autenticado']) && $_SESSION['autenticado'] != true || $_SESSION['permissao'] != 'adm') {
-    header('Location: /');
-}
-
-$timeZone = new DateTimeZone('America/Sao_Paulo');
-
-$date = new DateTime('now', $timeZone);
+require_once "App/Config.php";
 
 ?>
 
@@ -24,7 +18,7 @@ $date = new DateTime('now', $timeZone);
         <a class="btn__input" href="/nps-mes?data=<?= $date->format('Y-m') ?>">Nps do mês</a>    
         <a class="btn__input" href="/nps-ano?data=<?= $date->format('Y') ?>">Nps do ano</a> 
         <a class="btn__input" href="/register">Registrar Usuário</a>  
-        <a class="btn__input" href="/texto-edit">Alterar Textos</a>      
+        <a class="btn__input" href="/texto-edit">Alterar Textos</a>     
     </div>
 
     <div class="nps__box">        

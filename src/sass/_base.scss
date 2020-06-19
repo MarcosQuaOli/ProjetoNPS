@@ -21,8 +21,10 @@ button, a {
 	transition: .3s ease-in-out;
 }
 
-button:focus {
-	outline: 0;
+button:focus, li:focus {
+	box-shadow: none;
+    border: 0 none;
+    outline: 0;
 }
 
 img {

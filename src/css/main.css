@@ -18,7 +18,10 @@ button, a {
   -webkit-transition: .3s ease-in-out;
   transition: .3s ease-in-out; }
 
-button:focus {
+button:focus, li:focus {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  border: 0 none;
   outline: 0; }
 
 img {
@@ -117,13 +120,15 @@ img {
     z-index: 10; }
     .btn__back--home {
       position: fixed;
+      cursor: pointer;
+      border: none;
       top: 10px;
       left: 10px;
       border-radius: 5px;
       background: transparent;
       z-index: 10;
-      width: 40px;
-      height: 30px; }
+      width: 70px;
+      height: 50px; }
   .btn__up {
     position: fixed;
     bottom: 10px;
@@ -169,10 +174,10 @@ img {
 .page {
   min-height: 100vh;
   color: #fff;
-  background: linear-gradient(-45deg, #202020, #0f700f, #202020);
-  background-size: 400% 400%;
-  -webkit-animation: gradient 15s ease-in-out infinite;
-          animation: gradient 15s ease-in-out infinite;
+  background: linear-gradient(-45deg, #124212, #0f700f, #124212, #0f700f, #124212, #0f700f);
+  background-size: 500% 500%;
+  -webkit-animation: gradient 15s infinite;
+          animation: gradient 15s infinite;
   letter-spacing: .5px; }
 
 .grafico {

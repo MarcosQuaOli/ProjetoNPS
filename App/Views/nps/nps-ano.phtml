@@ -1,14 +1,8 @@
 <?php
 
-if(!isset($_SESSION['autenticado']) && $_SESSION['autenticado'] != true || $_SESSION['permissao'] != 'adm') {
-    header('Location: /logout');
-}
+require_once "App/Config.php";
 
-$years = range(2020, strftime("%Y", time()));
-
-$timeZone = new DateTimeZone('America/Sao_Paulo');
-
-$date = new DateTime('now', $timeZone);
+$years = range(2010, strftime("%Y", time()));
 
 ?>
 
@@ -20,7 +14,7 @@ $date = new DateTime('now', $timeZone);
         <a class="btn__input" href="/nps-mes?data=<?= $date->format('Y-m') ?>">Nps do mês</a>    
         <a class="btn__input" href="/nps-ano?data=<?= $date->format('Y') ?>">Nps do ano</a> 
         <a class="btn__input" href="/register">Registrar Usuário</a>    
-        <a class="btn__input" href="/texto-edit">Alterar Textos</a>    
+        <a class="btn__input" href="/texto-edit">Alterar Textos</a>  
     </div>
 
     <div class="nps__box">
@@ -124,7 +118,7 @@ $date = new DateTime('now', $timeZone);
                     </div>
 
                     <div class="evolucao">
-                        <h2 class="evolucao__title">Grafico de evolucao anual em %</h2>
+                        <h2 class="evolucao__title">Grafico de evolução anual em %</h2>
 
                         <div class="evolucao__guia">
                             <p class="evolucao__text"><span class="evolucao--bg-detrator"></span>Detratores</p>
@@ -132,30 +126,30 @@ $date = new DateTime('now', $timeZone);
                             <p class="evolucao__text"><span class="evolucao--bg-promotor"></span>Promotores</p>
                         </div>
 
-                        <div class="evolucao__inner">
+                        <div class="evolucao__inner evolucao__inner--width-flex">
 
-                            <?php foreach($this->view->graficoAno as $graficoAno) { ?>
+                            <?php foreach($this->view->graficoAnual as $graficoAnual) { ?>
 
                                 <div class="evolucao__grafico">
-                                    <div class="evolucao--bg-promotor" style="height: <?= $graficoAno['promoters_porc'] . "%" ?> "></div>
-                                    <div class="evolucao--bg-passive" style="height: <?= $graficoAno['passives_porc'] . "%" ?> "></div>
-                                    <div class="evolucao--bg-detrator" style="height: <?= $graficoAno['detrators_porc'] . "%" ?> "></div>
-                                    <div class="evolucao__data"><?= $graficoAno['data']?></div>
+                                    <div class="evolucao--bg-promotor" style="height: <?= $graficoAnual['promoters_porc'] . "%" ?> "></div>
+                                    <div class="evolucao--bg-passive" style="height: <?= $graficoAnual['passives_porc'] . "%" ?> "></div>
+                                    <div class="evolucao--bg-detrator" style="height: <?= $graficoAnual['detrators_porc'] . "%" ?> "></div>
+                                    <div class="evolucao__data"><?= $graficoAnual['data']?></div>
                                 </div>
 
                             <?php } ?>
 
                         </div>
                     </div>
-
+                    
                     <div class="evolucao">
-                        <h2 class="evolucao__title">Grafico de evolucao anual do Nps</h2>
+                        <h2 class="evolucao__title">Grafico de evolução anual do Nps</h2>
 
                         <div class="evolucao__guia">
-                            <p class="evolucao__text"><span class="evolucao--bg-nps"></span>Nps mês a mês</p>
+                            <p class="evolucao__text"><span class="evolucao--bg-nps"></span>Nps dia a dia</p>
                         </div>
 
-                        <div class="evolucao__inner evolucao__inner--nps">
+                        <div class="evolucao__inner evolucao__inner--nps evolucao__inner--width-flex">
 
                             <div class="evolucao__nps-line">100</div>
                             <div class="evolucao__nps-line evolucao__nps-line--75">75</div>
@@ -163,11 +157,11 @@ $date = new DateTime('now', $timeZone);
                             <div class="evolucao__nps-line evolucao__nps-line--25">25</div>
                             <div class="evolucao__nps-line evolucao__nps-line--0">0</div>
 
-                            <?php foreach($this->view->graficoAno as $graficoAno) { ?>
+                            <?php foreach($this->view->graficoAnual as $graficoAnual) { ?>
 
                                 <div class="evolucao__grafico--nps">
-                                    <div class="evolucao--bg-nps" style="height: <?= $graficoAno['nps_total'] . "%" ?> "></div>
-                                    <div class="evolucao__data evolucao__data--nps"><?= $graficoAno['data']?></div>
+                                    <div class="evolucao--bg-nps" style="height: <?= $graficoAnual['nps_total'] . "%" ?> "></div>
+                                    <div class="evolucao__data evolucao__data--nps"><?= $graficoAnual['data']?></div>
                                 </div>
 
                             <?php } ?>                            
@@ -189,5 +183,3 @@ $date = new DateTime('now', $timeZone);
     </div>
 
 </section>
-
-<!-- <script src="src/js/consulta.js"></script> -->

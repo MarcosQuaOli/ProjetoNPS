@@ -31,6 +31,15 @@ class NpsDAO extends Connection {
 
     }
 
+    
+    public function getNpsAno($data) {
+
+        $query = "select nota, DATE_FORMAT(created_at, '%Y') as ano,count(*) as total from nps where DATE_FORMAT(created_at, '%Y') = '$data' group by nota";
+
+        return $this->select($query); 
+
+    }
+
     public function getGraficoMes($data) {
 
         $query = "SELECT created_at FROM `nps` where DATE_FORMAT(created_at, '%Y/%m') = '$data' group by DAY(created_at)";
@@ -64,12 +73,20 @@ class NpsDAO extends Connection {
         return $notas_mes_ano;
     }
 
-    public function getNpsAno($data) {
+    public function getGraficoGeral() {
 
-        $query = "select nota, count(*) as total from nps where DATE_FORMAT(created_at, '%Y') = '$data' group by nota";
+        $query = "SELECT created_at FROM `nps` group by YEAR(created_at)";
 
-        return $this->select($query); 
+        $result = $this->select($query);
 
+        foreach($result as $resultGeral) {
+            $date = new \DateTime($resultGeral->created_at);
+            $dataFormatada = $date->format('Y');
+
+            $notas_geral[] = $this->getNpsAno($dataFormatada);
+        }
+        
+        return $notas_geral;
     }
 
 	public function insert(Nps $nps) {

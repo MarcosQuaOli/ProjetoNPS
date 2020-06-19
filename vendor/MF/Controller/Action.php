@@ -5,9 +5,11 @@ namespace MF\Controller;
 abstract class Action {
 
 	protected $view;
+	protected $data;
 
 	public function __construct() {
 		$this->view = new \stdClass();
+		$this->data = new \DateTime('now', new \DateTimeZone('America/Sao_Paulo'));
 	}
 
 	protected function render($view, $layout = 'main') {
